@@ -1,0 +1,15 @@
+c:\users\prith\documents\visual studio 2013\Projects\IMDBClone\IMDBClone\bin\Debug\IMDBClone.exe.config
+C:\Users\PRITH\documents\visual studio 2013\Projects\IMDBClone\IMDBClone\bin\Debug\IMDBClone.exe
+C:\Users\PRITH\documents\visual studio 2013\Projects\IMDBClone\IMDBClone\bin\Debug\IMDBClone.pdb
+C:\Users\PRITH\documents\visual studio 2013\Projects\IMDBClone\IMDBClone\obj\Debug\IMDBClone.csprojResolveAssemblyReference.cache
+C:\Users\PRITH\documents\visual studio 2013\Projects\IMDBClone\IMDBClone\obj\Debug\IMDBClone.Properties.Resources.resources
+C:\Users\PRITH\documents\visual studio 2013\Projects\IMDBClone\IMDBClone\obj\Debug\IMDBClone.csproj.GenerateResource.Cache
+C:\Users\PRITH\documents\visual studio 2013\Projects\IMDBClone\IMDBClone\obj\Debug\IMDBClone.exe
+C:\Users\PRITH\documents\visual studio 2013\Projects\IMDBClone\IMDBClone\obj\Debug\IMDBClone.pdb
+C:\Users\PRITH\documents\visual studio 2013\Projects\IMDBClone\IMDBClone\bin\Debug\System.Data.SQLite.dll
+C:\Users\PRITH\documents\visual studio 2013\Projects\IMDBClone\IMDBClone\bin\Debug\System.Data.SQLite.xml
+C:\Users\PRITH\documents\visual studio 2013\Projects\IMDBClone\IMDBClone\obj\Debug\IMDBClone.Form1_signin.resources
+C:\Users\PRITH\documents\visual studio 2013\Projects\IMDBClone\IMDBClone\obj\Debug\IMDBClone.Form2_registration.resources
+C:\Users\PRITH\Documents\Visual Studio 2013\Projects\IMDBClone\IMDBClone\obj\Debug\IMDBClone.Form3_MovieList.resources
+C:\Users\PRITH\Documents\Visual Studio 2013\Projects\IMDBClone\IMDBClone\obj\Debug\IMDBClone.Form4_addMovie.resources
+C:\Users\PRITH\documents\visual studio 2013\Projects\IMDBClone\IMDBClone\obj\Debug\IMDBClone.Form5_editMovie.resources
