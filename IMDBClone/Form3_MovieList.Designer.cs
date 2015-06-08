@@ -39,7 +39,7 @@
             // 
             // m_richTextBox_details
             // 
-            this.m_richTextBox_details.Location = new System.Drawing.Point(356, 173);
+            this.m_richTextBox_details.Location = new System.Drawing.Point(356, 218);
             this.m_richTextBox_details.Name = "m_richTextBox_details";
             this.m_richTextBox_details.Size = new System.Drawing.Size(138, 182);
             this.m_richTextBox_details.TabIndex = 0;
@@ -47,7 +47,7 @@
             // 
             // m_picturebox_poster
             // 
-            this.m_picturebox_poster.Location = new System.Drawing.Point(356, 12);
+            this.m_picturebox_poster.Location = new System.Drawing.Point(356, 57);
             this.m_picturebox_poster.Name = "m_picturebox_poster";
             this.m_picturebox_poster.Size = new System.Drawing.Size(138, 155);
             this.m_picturebox_poster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -66,7 +66,7 @@
             // 
             // m_button_editMovie
             // 
-            this.m_button_editMovie.Location = new System.Drawing.Point(356, 361);
+            this.m_button_editMovie.Location = new System.Drawing.Point(356, 406);
             this.m_button_editMovie.Name = "m_button_editMovie";
             this.m_button_editMovie.Size = new System.Drawing.Size(138, 21);
             this.m_button_editMovie.TabIndex = 3;
@@ -76,7 +76,7 @@
             // 
             // m_button_logout
             // 
-            this.m_button_logout.Location = new System.Drawing.Point(274, 44);
+            this.m_button_logout.Location = new System.Drawing.Point(359, 28);
             this.m_button_logout.Name = "m_button_logout";
             this.m_button_logout.Size = new System.Drawing.Size(74, 22);
             this.m_button_logout.TabIndex = 4;
@@ -87,11 +87,13 @@
             // m_label_username
             // 
             this.m_label_username.AutoSize = true;
-            this.m_label_username.Location = new System.Drawing.Point(233, 49);
+            this.m_label_username.Location = new System.Drawing.Point(365, 12);
             this.m_label_username.Name = "m_label_username";
+            this.m_label_username.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.m_label_username.Size = new System.Drawing.Size(35, 13);
             this.m_label_username.TabIndex = 5;
             this.m_label_username.Text = "label1";
+            this.m_label_username.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // Form3_MovieList
             // 

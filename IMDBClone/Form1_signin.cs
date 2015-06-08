@@ -103,18 +103,22 @@ namespace IMDBClone
                 //
                 //end existence check/creation for users table
 
-                SQLiteCommand sql_query_createCookie = new SQLiteCommand("create table if not exists cookie(id integer primary key,cookie_id integer)", con);
+                // ************************COOKIE SIMULATOR!*********************************
+                //
+                SQLiteCommand sql_query_createCookie = new SQLiteCommand("create table if not exists cookie(id integer primary key,cookie_id VARCHAR(20))", con);
                 sql_query_createCookie.ExecuteNonQuery();
-                //SQLiteCommand sql_query_initCookie = new SQLiteCommand("insert into cookie(id,cookie_id) values (1,NULL)", m_dbConnection_signin);
-                //sql_query_initCookie.ExecuteNonQuery();
+                //
+                // ************************/COOKIE SIMULATOR!*********************************
 
-                SQLiteCommand sql_query_redirect = new SQLiteCommand("select count(*) from cookie", con);
-                
+                SQLiteCommand sql_query_redirect = new SQLiteCommand("select cookie_id,count(*) from cookie", con);
+                string cookie_id;
                     SQLiteDataReader reader_redirect = sql_query_redirect.ExecuteReader();
                     
 
                         while(reader_redirect.Read())
                         {
+                            cookie_id = Convert.ToString(reader_redirect["cookie_id"]);
+
                             if (Convert.ToInt32(reader_redirect["count(*)"]) == 1)
                             {
 
@@ -122,7 +126,7 @@ namespace IMDBClone
                                 reader_redirect.Dispose();
 
                                 this.Hide();
-                                Form3_MovieList f3 = new Form3_MovieList();
+                                Form3_MovieList f3 = new Form3_MovieList(cookie_id);
                                 f3.ShowDialog();
                                 this.Close();
                                 break;
@@ -186,7 +190,7 @@ namespace IMDBClone
                     //code for remembering user here
                     // use using(SQLitecommand command) here for better garbage collection...
 
-                    SQLiteCommand sql_query_remember = new SQLiteCommand("insert into cookie(cookie_id) values (1)", con);
+                    SQLiteCommand sql_query_remember = new SQLiteCommand("insert into cookie(cookie_id) values ('"+username+"')", con); //insert a string here, the username?
                     sql_query_remember.ExecuteNonQuery();
                     // end code for remembering user here
                     //m_dbConnection_signin.Close();

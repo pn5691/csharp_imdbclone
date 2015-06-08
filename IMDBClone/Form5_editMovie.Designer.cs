@@ -42,9 +42,10 @@
             this.m_textBox_actorMain = new System.Windows.Forms.TextBox();
             this.m_textBox_director = new System.Windows.Forms.TextBox();
             this.m_textBox_name = new System.Windows.Forms.TextBox();
-            this.m_pictureBox_poster = new System.Windows.Forms.PictureBox();
+            this.m_picturebox_poster = new System.Windows.Forms.PictureBox();
             this.m_button_cancel = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.m_pictureBox_poster)).BeginInit();
+            this.label7 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.m_picturebox_poster)).BeginInit();
             this.SuspendLayout();
             // 
             // m_button_addMovie
@@ -55,6 +56,7 @@
             this.m_button_addMovie.TabIndex = 27;
             this.m_button_addMovie.Text = "Add";
             this.m_button_addMovie.UseVisualStyleBackColor = true;
+            this.m_button_addMovie.Click += new System.EventHandler(this.m_button_addMovie_Click);
             // 
             // label6
             // 
@@ -132,6 +134,7 @@
             this.m_button_browse.TabIndex = 19;
             this.m_button_browse.Text = "Browse...";
             this.m_button_browse.UseVisualStyleBackColor = true;
+            this.m_button_browse.Click += new System.EventHandler(this.m_button_browse_Click);
             // 
             // m_richTextBox_summary
             // 
@@ -169,14 +172,14 @@
             this.m_textBox_name.Size = new System.Drawing.Size(243, 20);
             this.m_textBox_name.TabIndex = 14;
             // 
-            // m_pictureBox_poster
+            // m_picturebox_poster
             // 
-            this.m_pictureBox_poster.Location = new System.Drawing.Point(86, 328);
-            this.m_pictureBox_poster.Name = "m_pictureBox_poster";
-            this.m_pictureBox_poster.Size = new System.Drawing.Size(243, 128);
-            this.m_pictureBox_poster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.m_pictureBox_poster.TabIndex = 28;
-            this.m_pictureBox_poster.TabStop = false;
+            this.m_picturebox_poster.Location = new System.Drawing.Point(86, 328);
+            this.m_picturebox_poster.Name = "m_picturebox_poster";
+            this.m_picturebox_poster.Size = new System.Drawing.Size(243, 128);
+            this.m_picturebox_poster.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.m_picturebox_poster.TabIndex = 28;
+            this.m_picturebox_poster.TabStop = false;
             // 
             // m_button_cancel
             // 
@@ -188,13 +191,24 @@
             this.m_button_cancel.UseVisualStyleBackColor = true;
             this.m_button_cancel.Click += new System.EventHandler(this.m_button_cancel_Click);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(18, 328);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(62, 20);
+            this.label7.TabIndex = 30;
+            this.label7.Text = "Current";
+            // 
             // Form5_editMovie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(357, 497);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.m_button_cancel);
-            this.Controls.Add(this.m_pictureBox_poster);
+            this.Controls.Add(this.m_picturebox_poster);
             this.Controls.Add(this.m_button_addMovie);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -213,7 +227,7 @@
             this.Name = "Form5_editMovie";
             this.Text = "Form5_editMovie";
             this.Load += new System.EventHandler(this.Form5_editMovie_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.m_pictureBox_poster)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_picturebox_poster)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -235,7 +249,8 @@
         private System.Windows.Forms.TextBox m_textBox_actorMain;
         private System.Windows.Forms.TextBox m_textBox_director;
         private System.Windows.Forms.TextBox m_textBox_name;
-        private System.Windows.Forms.PictureBox m_pictureBox_poster;
+        private System.Windows.Forms.PictureBox m_picturebox_poster;
         private System.Windows.Forms.Button m_button_cancel;
+        private System.Windows.Forms.Label label7;
     }
 }

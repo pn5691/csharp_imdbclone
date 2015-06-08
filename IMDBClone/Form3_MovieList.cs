@@ -20,9 +20,10 @@ namespace IMDBClone
         SQLiteConnection m_dbConnection = new SQLiteConnection("Data Source=IMDBClone.sqlite;Version=3;");
         SQLiteCommand sql_query;
         SQLiteDataReader reader;
-        int i; //need this for identifying clicked poster...or do we? review pendin
-        int movieID; //needed for editing clicked poster/movie...ugh. review pending.
+        int i; //need this for identifying clicked poster..
+        int movieID; //needed for editing clicked poster/movie...ugh. .
         string welcome;
+        string username;
         //
         // /GLOVARS
 //###########################################################################################################################################################################
@@ -33,8 +34,9 @@ namespace IMDBClone
 //###########################################################################################################################################################################
         public Form3_MovieList(string x)
         {
+            username = x;
             InitializeComponent();
-            welcome = x;
+            welcome = "Welcome, "+x;
         }
 //###########################################################################################################################################################################
         private void Form3_MovieList_Load(object sender, EventArgs e)
@@ -67,11 +69,12 @@ namespace IMDBClone
                 
                 if(i%4 == 0 ){ x = 0; y = y + 110; }
 
-                picturebox[i].BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+                //picturebox[i].BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
                 picturebox[i].Location = new Point(x * 75 + 10, y);
+                
                 picturebox[i].Size = new Size(75, 100);
 
-                picturebox[i].SizeMode = PictureBoxSizeMode.StretchImage;
+                picturebox[i].SizeMode = PictureBoxSizeMode.Zoom;
 
                 sql_query = new SQLiteCommand("select poster,(select count(*) from movies b where a.id>=b.id) as Rid from movies a where Rid=" + (i + 1), m_dbConnection);
                 reader = sql_query.ExecuteReader();
@@ -107,7 +110,7 @@ namespace IMDBClone
             m_dbConnection.Open();
             PictureBox picbox = sender as PictureBox;
             i = Convert.ToInt32(picbox.Name);
-            MessageBox.Show("clicked : " + picbox.Name);
+            //DEBUG : MessageBox.Show("clicked : " + picbox.Name);
             
             sql_query = new SQLiteCommand("select id,name,director,actor_main,actor_secondary,summary,poster,(select count(*) from movies b "+
                                             "where a.id>=b.id) as Rid from movies a where Rid=" + (i+1),m_dbConnection);
@@ -138,7 +141,7 @@ namespace IMDBClone
         {
             this.Hide();
             //this.Refresh();
-            Form4_addMovie f4 = new Form4_addMovie();
+            Form4_addMovie f4 = new Form4_addMovie(username);
             this.Close();
             f4.ShowDialog();
             
@@ -147,13 +150,21 @@ namespace IMDBClone
         private void m_button_editMovie_Click(object sender, EventArgs e)
         {
             int id = movieID;
+            if (id == 0)                                                //Hardcode : if id=0, no movie is currently selected, so throw up a messagebox
+            {
+                MessageBox.Show("No movie selected");
+            }
+            else
+            {
 
-            Form5_editMovie f5 = new Form5_editMovie(id);
-            this.Hide();
-            f5.ShowDialog();
-            this.Close();
+
+                Form5_editMovie f5 = new Form5_editMovie(id, username);
+                this.Hide();
+                f5.ShowDialog();
+                this.Close();
+            }
         }
-
+//###########################################################################################################################################################################
         private void m_button_logout_Click(object sender, EventArgs e)
         {
             //m_dbConnection.Open();
