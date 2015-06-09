@@ -24,6 +24,8 @@ namespace IMDBClone
         int movieID; //needed for editing clicked poster/movie...ugh. .
         string welcome;
         string username;
+        string searchstring;
+        bool searchByGenre;
         //
         // /GLOVARS
 //###########################################################################################################################################################################
@@ -32,11 +34,20 @@ namespace IMDBClone
             InitializeComponent();
         }
 //###########################################################################################################################################################################
-        public Form3_MovieList(string x)
+        /*public Form3_MovieList(string x)
         {
             username = x;
             InitializeComponent();
             welcome = "Welcome, "+x;
+        }*/
+//#####################################################################################################################################################################
+        public Form3_MovieList(string x,string searchstring,bool searchByGenre)
+        {
+            username = x;
+            this.searchstring = searchstring;
+            this.searchByGenre = searchByGenre;
+            InitializeComponent();
+            welcome = "Welcome, " + x;
         }
 //###########################################################################################################################################################################
         private void Form3_MovieList_Load(object sender, EventArgs e)
@@ -47,7 +58,16 @@ namespace IMDBClone
             this.AutoScroll = true;
 
             m_dbConnection.Open();                                                          //open connection
-            sql_query = new SQLiteCommand("select count(*) from movies", m_dbConnection);   //need this for number of pictureboxes to be generated via loop
+            
+
+            //#################CREATE TEMP TABLE#########################
+            sql_query = new SQLiteCommand("drop table if exists tmp",m_dbConnection);
+            sql_query.ExecuteNonQuery();
+            sql_query = new SQLiteCommand("create table tmp as select rowid,* from movies where (name like '%" + searchstring + "%' or director like '%" + searchstring + "%' or actor_main like '%" + searchstring + "%' or actor_secondary like '%" + searchstring + "%')", m_dbConnection);
+             sql_query.ExecuteNonQuery();
+            //#################/ CREATE TEMP TABLE#########################
+
+             sql_query = new SQLiteCommand("select count(*) from movies where (name like '%" + searchstring + "%' or director like '%" + searchstring + "%' or actor_main like '%" + searchstring + "%' or actor_secondary like '%" + searchstring + "%')", m_dbConnection);   //need this for number of pictureboxes to be generated via loop
             int m_numberOfPictures = 0;
             reader = sql_query.ExecuteReader();
             while(reader.Read())
@@ -76,7 +96,8 @@ namespace IMDBClone
 
                 picturebox[i].SizeMode = PictureBoxSizeMode.Zoom;
 
-                sql_query = new SQLiteCommand("select poster,(select count(*) from movies b where a.id>=b.id) as Rid from movies a where Rid=" + (i + 1), m_dbConnection);
+                sql_query = new SQLiteCommand("select id,poster,rowid from tmp where rowid=" + (i + 1), m_dbConnection);
+                //sql_query = new SQLiteCommand("select poster from tmp where rowid=" + (i+1), m_dbConnection);
                 reader = sql_query.ExecuteReader();
                 // **************try-catch block****************************
                 try
@@ -112,13 +133,12 @@ namespace IMDBClone
             i = Convert.ToInt32(picbox.Name);
             //DEBUG : MessageBox.Show("clicked : " + picbox.Name);
             
-            sql_query = new SQLiteCommand("select id,name,director,actor_main,actor_secondary,summary,poster,(select count(*) from movies b "+
-                                            "where a.id>=b.id) as Rid from movies a where Rid=" + (i+1),m_dbConnection);
+            sql_query = new SQLiteCommand("select id,name,director,actor_main,actor_secondary,summary,poster,rowid from tmp a where rowid=" + (i+1),m_dbConnection);
             reader = sql_query.ExecuteReader();
             while (reader.Read())
             {
                 m_richTextBox_details.Text = "";
-                m_richTextBox_details.AppendText(reader["id"] + "\n" + reader["name"] + "\n" + reader["director"] + "\n" + reader["actor_main"] + "\n" + reader["actor_secondary"] + "\n" + reader["summary"] + "\n");
+                m_richTextBox_details.AppendText(reader["id"] + "\n" + reader["rowid"] + "\n" + reader["name"] + "\n" + reader["director"] + "\n" + reader["actor_main"] + "\n" + reader["actor_secondary"] + "\n" + reader["summary"] + "\n");
                 movieID = Convert.ToInt32(reader["id"]); //glovar to track movie to edit
 
                 if (reader["poster"] != DBNull.Value)
@@ -187,6 +207,17 @@ namespace IMDBClone
             f1.ShowDialog();
             this.Close();
 
+        }
+//###########################################################################################################################################################################
+        private void m_button_search_Click(object sender, EventArgs e)
+        {
+            
+            searchstring = m_textbox_search.Text;
+            searchByGenre = false;
+            Form3_MovieList f3 = new Form3_MovieList(username, searchstring, searchByGenre);
+            this.Hide();
+            f3.ShowDialog();
+            this.Close();
         }
 //###########################################################################################################################################################################
     }

@@ -126,7 +126,7 @@ namespace IMDBClone
                                 reader_redirect.Dispose();
 
                                 this.Hide();
-                                Form3_MovieList f3 = new Form3_MovieList(cookie_id);
+                                Form3_MovieList f3 = new Form3_MovieList(cookie_id,"",false);
                                 f3.ShowDialog();
                                 this.Close();
                                 break;
@@ -197,7 +197,7 @@ namespace IMDBClone
                     //hide this form
                     this.Hide();
                     //show new form
-                    Form3_MovieList f3 = new Form3_MovieList(username);
+                    Form3_MovieList f3 = new Form3_MovieList(username,"",false);
                     f3.ShowDialog();
                     //close this form after f3 has exited
                     this.Close();

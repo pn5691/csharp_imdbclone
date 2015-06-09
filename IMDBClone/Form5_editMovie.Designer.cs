@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.m_button_addMovie = new System.Windows.Forms.Button();
+            this.m_button_editConfirm = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -48,15 +48,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.m_picturebox_poster)).BeginInit();
             this.SuspendLayout();
             // 
-            // m_button_addMovie
+            // m_button_editConfirm
             // 
-            this.m_button_addMovie.Location = new System.Drawing.Point(86, 462);
-            this.m_button_addMovie.Name = "m_button_addMovie";
-            this.m_button_addMovie.Size = new System.Drawing.Size(115, 23);
-            this.m_button_addMovie.TabIndex = 27;
-            this.m_button_addMovie.Text = "Add";
-            this.m_button_addMovie.UseVisualStyleBackColor = true;
-            this.m_button_addMovie.Click += new System.EventHandler(this.m_button_addMovie_Click);
+            this.m_button_editConfirm.Location = new System.Drawing.Point(86, 462);
+            this.m_button_editConfirm.Name = "m_button_editConfirm";
+            this.m_button_editConfirm.Size = new System.Drawing.Size(115, 23);
+            this.m_button_editConfirm.TabIndex = 27;
+            this.m_button_editConfirm.Text = "Add";
+            this.m_button_editConfirm.UseVisualStyleBackColor = true;
+            this.m_button_editConfirm.Click += new System.EventHandler(this.m_button_editConfirm_Click);
             // 
             // label6
             // 
@@ -209,7 +209,7 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.m_button_cancel);
             this.Controls.Add(this.m_picturebox_poster);
-            this.Controls.Add(this.m_button_addMovie);
+            this.Controls.Add(this.m_button_editConfirm);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -235,7 +235,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button m_button_addMovie;
+        private System.Windows.Forms.Button m_button_editConfirm;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;

@@ -97,7 +97,7 @@ namespace IMDBClone
 
             m_dbConnection.Close();
             this.Hide();
-           Form3_MovieList f3 = new Form3_MovieList(username); //need to send string of current user
+           Form3_MovieList f3 = new Form3_MovieList(username,"",false); //need to send string of current user
            this.Close();
             f3.ShowDialog();
 
@@ -118,7 +118,7 @@ namespace IMDBClone
         private void m_button_cancel_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form3_MovieList f3 = new Form3_MovieList(username);//need to send string of current user
+            Form3_MovieList f3 = new Form3_MovieList(username,"",false);//need to send string of current user
             this.Close();
             f3.ShowDialog();
         }

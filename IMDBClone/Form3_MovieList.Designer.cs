@@ -34,6 +34,8 @@
             this.m_button_editMovie = new System.Windows.Forms.Button();
             this.m_button_logout = new System.Windows.Forms.Button();
             this.m_label_username = new System.Windows.Forms.Label();
+            this.m_textbox_search = new System.Windows.Forms.TextBox();
+            this.m_button_search = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.m_picturebox_poster)).BeginInit();
             this.SuspendLayout();
             // 
@@ -95,11 +97,30 @@
             this.m_label_username.Text = "label1";
             this.m_label_username.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // m_textbox_search
+            // 
+            this.m_textbox_search.Location = new System.Drawing.Point(12, 43);
+            this.m_textbox_search.Name = "m_textbox_search";
+            this.m_textbox_search.Size = new System.Drawing.Size(100, 20);
+            this.m_textbox_search.TabIndex = 6;
+            // 
+            // m_button_search
+            // 
+            this.m_button_search.Location = new System.Drawing.Point(118, 43);
+            this.m_button_search.Name = "m_button_search";
+            this.m_button_search.Size = new System.Drawing.Size(74, 20);
+            this.m_button_search.TabIndex = 7;
+            this.m_button_search.Text = "Find...";
+            this.m_button_search.UseVisualStyleBackColor = true;
+            this.m_button_search.Click += new System.EventHandler(this.m_button_search_Click);
+            // 
             // Form3_MovieList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(506, 435);
+            this.Controls.Add(this.m_button_search);
+            this.Controls.Add(this.m_textbox_search);
             this.Controls.Add(this.m_label_username);
             this.Controls.Add(this.m_button_logout);
             this.Controls.Add(this.m_button_editMovie);
@@ -123,5 +144,7 @@
         private System.Windows.Forms.Button m_button_editMovie;
         private System.Windows.Forms.Button m_button_logout;
         private System.Windows.Forms.Label m_label_username;
+        private System.Windows.Forms.TextBox m_textbox_search;
+        private System.Windows.Forms.Button m_button_search;
     }
 }
