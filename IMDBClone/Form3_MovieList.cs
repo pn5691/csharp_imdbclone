@@ -24,8 +24,10 @@ namespace IMDBClone
         int movieID; //needed for editing clicked poster/movie...ugh. .
         string welcome;
         string username;
-        string searchstring;
+        string searchstring,genreString1,genreString2;
         bool searchByGenre;
+        string[] genres;
+        
         //
         // /GLOVARS
 //###########################################################################################################################################################################
@@ -34,12 +36,15 @@ namespace IMDBClone
             InitializeComponent();
         }
 //###########################################################################################################################################################################
-        /*public Form3_MovieList(string x)
+        public Form3_MovieList(string x, string genreString1,string genreString2, bool searchByGenre)
         {
             username = x;
+            this.genreString1 = genreString1;
+            this.genreString2 = genreString2;
+            this.searchByGenre = searchByGenre;
             InitializeComponent();
-            welcome = "Welcome, "+x;
-        }*/
+            welcome = "Welcome, " + x;
+        }
 //#####################################################################################################################################################################
         public Form3_MovieList(string x,string searchstring,bool searchByGenre)
         {
@@ -57,73 +62,107 @@ namespace IMDBClone
             m_label_username.Text = welcome;
             this.AutoScroll = true;
 
-            m_dbConnection.Open();                                                          //open connection
             
 
-            //#################CREATE TEMP TABLE#########################
-            sql_query = new SQLiteCommand("drop table if exists tmp",m_dbConnection);
-            sql_query.ExecuteNonQuery();
-            sql_query = new SQLiteCommand("create table tmp as select rowid,* from movies where (name like '%" + searchstring + "%' or director like '%" + searchstring + "%' or actor_main like '%" + searchstring + "%' or actor_secondary like '%" + searchstring + "%')", m_dbConnection);
-             sql_query.ExecuteNonQuery();
-            //#################/ CREATE TEMP TABLE#########################
-
-             sql_query = new SQLiteCommand("select count(*) from movies where (name like '%" + searchstring + "%' or director like '%" + searchstring + "%' or actor_main like '%" + searchstring + "%' or actor_secondary like '%" + searchstring + "%')", m_dbConnection);   //need this for number of pictureboxes to be generated via loop
-            int m_numberOfPictures = 0;
-            reader = sql_query.ExecuteReader();
-            while(reader.Read())
+            genres = new string[] {"Action/Adventure","Biopic/Historical","Comedy","Drama","Documentary","Fantasy","Horror","Romance","Sci-Fi","Superhero","Thriller/Mystery"};
+            for (int i = 0; i < genres.Length; i++)
             {
-                m_numberOfPictures = Convert.ToInt32(reader["count(*)"]);                   //get number of pictures to be rendered, assign to a variable
-
+                m_comboBox_genre1.Items.Add(genres[i]);
+                m_comboBox_genre2.Items.Add(genres[i]);
             }
 
-            reader.Dispose();
+            m_dbConnection.Open();                                                          //open connection
 
-            PictureBox[] picturebox = new PictureBox[m_numberOfPictures];                   //create the array of PictureBox type
-            int x = 0; int y = 0;                                                           // the coordinates
-
-            for(i=0;i<m_numberOfPictures;i++)
+            //############################################### SEARCHING BY GENRE ##########################################################
+            if (searchByGenre)
             {
-                x++;
-                picturebox[i] = new PictureBox();
-                this.Controls.Add(picturebox[i]);
-                
-                if(i%4 == 0 ){ x = 0; y = y + 110; }
+                //#################CREATE TEMP TABLE#########################
+                sql_query = new SQLiteCommand("drop table if exists tmp", m_dbConnection);
+                sql_query.ExecuteNonQuery();
+                sql_query = new SQLiteCommand("create table tmp as select rowid,* from movies where (genre_main like '%"+genreString1+"%' and genre_secondary like '%"+genreString2+"%') or (genre_main like '%"+genreString2+"%' and genre_secondary like '%"+genreString1+"%') ", m_dbConnection);
+                sql_query.ExecuteNonQuery();
+                //#################/ CREATE TEMP TABLE#########################
 
-                //picturebox[i].BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-                picturebox[i].Location = new Point(x * 75 + 10, y);
-                
-                picturebox[i].Size = new Size(75, 100);
 
-                picturebox[i].SizeMode = PictureBoxSizeMode.Zoom;
+            } //end if
+            //############################################### END SEARCHING BY GENR ######################################################
 
-                sql_query = new SQLiteCommand("select id,poster,rowid from tmp where rowid=" + (i + 1), m_dbConnection);
-                //sql_query = new SQLiteCommand("select poster from tmp where rowid=" + (i+1), m_dbConnection);
+            //############################################### SEARCHING BY SEARCHSTRING ##################################################
+            else
+            {
+
+                //#################CREATE TEMP TABLE#########################
+                sql_query = new SQLiteCommand("drop table if exists tmp", m_dbConnection);
+                sql_query.ExecuteNonQuery();
+                sql_query = new SQLiteCommand("create table tmp as select rowid,* from movies where (name like '%" + searchstring + "%' or director like '%" + searchstring + "%' or actor_main like '%" + searchstring + "%' or actor_secondary like '%" + searchstring + "%')", m_dbConnection);
+                sql_query.ExecuteNonQuery();
+                //#################/ CREATE TEMP TABLE#########################
+
+            }//end else
+
+            //############################################### END SEARCHING BY SEARCHSTRING ##############################################
+
+                //sql_query = new SQLiteCommand("select count(*) from movies where (name like '%" + searchstring + "%' or director like '%" + searchstring + "%' or actor_main like '%" + searchstring + "%' or actor_secondary like '%" + searchstring + "%')", m_dbConnection);   //need this for number of pictureboxes to be generated via loop
+                sql_query = new SQLiteCommand("select count(*) from tmp", m_dbConnection);
+                int m_numberOfPictures = 0;
                 reader = sql_query.ExecuteReader();
-                // **************try-catch block****************************
-                try
+                while (reader.Read())
                 {
-                    while (reader.Read())
+                    m_numberOfPictures = Convert.ToInt32(reader["count(*)"]);                   //get number of pictures to be rendered, assign to a variable
+
+                }
+
+                reader.Dispose();
+
+                PictureBox[] picturebox = new PictureBox[m_numberOfPictures];                   //create the array of PictureBox type
+                int x = 0; int y = 60;                                                           // the coordinates
+
+                for (i = 0; i < m_numberOfPictures; i++)
+                {
+                    x++;
+                    picturebox[i] = new PictureBox();
+                    this.Controls.Add(picturebox[i]);
+
+                    if (i % 6 == 0) { x = 0; y = y + 110; }
+
+                    //picturebox[i].BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+                    picturebox[i].Location = new Point(x * 75 + 10, y);
+
+                    picturebox[i].Size = new Size(75, 100);
+                    
+
+                    picturebox[i].SizeMode = PictureBoxSizeMode.Zoom;
+
+                    sql_query = new SQLiteCommand("select id,poster,rowid from tmp where rowid=" + (i + 1), m_dbConnection);
+                    //sql_query = new SQLiteCommand("select poster from tmp where rowid=" + (i+1), m_dbConnection);
+                    reader = sql_query.ExecuteReader();
+                    // **************try-catch block****************************
+                    try
                     {
-                        if (reader["poster"]!= DBNull.Value)
+                        while (reader.Read())
                         {
-                            byte[] a = (System.Byte[])reader["poster"];
-                            picturebox[i].Image = IMDBUtilities.ByteToImage(a);
+                            if (reader["poster"] != DBNull.Value)
+                            {
+                                byte[] a = (System.Byte[])reader["poster"];
+                                picturebox[i].Image = IMDBUtilities.ByteToImage(a);
+                            }
+                            else { picturebox[i].ImageLocation = @"placeholder.png"; }
                         }
-                        else { picturebox[i].ImageLocation = @"placeholder.png"; }
+                        reader.Dispose();
                     }
-                    reader.Dispose();
-                }
-                catch (Exception exc)
-                {
-                    MessageBox.Show(exc.Message, "DB_ERROR");
-                }
-                // **************/try-catch block****************************
-                picturebox[i].Name = "" + i;
-                picturebox[i].Click += handleClick;
-            }// end of for loop
+                    catch (Exception exc)
+                    {
+                        MessageBox.Show(exc.Message, "DB_ERROR");
+                    }
+                    // **************/try-catch block****************************
+                    picturebox[i].Name = "" + i;
+                    picturebox[i].Click += handleClick;
+                }// end of for loop
 
-            m_dbConnection.Close();
+                m_dbConnection.Close();
 
+           
+            //###############################################END SEARCHING BY SEARCHSTRING##################################################
         }
 //###########################################################################################################################################################################
         void handleClick(object sender, EventArgs e)
@@ -133,12 +172,12 @@ namespace IMDBClone
             i = Convert.ToInt32(picbox.Name);
             //DEBUG : MessageBox.Show("clicked : " + picbox.Name);
             
-            sql_query = new SQLiteCommand("select id,name,director,actor_main,actor_secondary,summary,poster,rowid from tmp a where rowid=" + (i+1),m_dbConnection);
+            sql_query = new SQLiteCommand("select rowid,* from tmp a where rowid=" + (i+1),m_dbConnection);
             reader = sql_query.ExecuteReader();
             while (reader.Read())
             {
                 m_richTextBox_details.Text = "";
-                m_richTextBox_details.AppendText(reader["id"] + "\n" + reader["rowid"] + "\n" + reader["name"] + "\n" + reader["director"] + "\n" + reader["actor_main"] + "\n" + reader["actor_secondary"] + "\n" + reader["summary"] + "\n");
+                m_richTextBox_details.AppendText(reader["id"] + "\n" + "ROWID: "+reader["rowid"] + "\n" + reader["name"] + "\n" + reader["director"] + "\n" + reader["actor_main"] + "\n" + reader["actor_secondary"] + "\n" + reader["genre_main"]+", "+reader["genre_secondary"] + "\n" + reader["summary"] + "\n");
                 movieID = Convert.ToInt32(reader["id"]); //glovar to track movie to edit
 
                 if (reader["poster"] != DBNull.Value)
@@ -178,7 +217,7 @@ namespace IMDBClone
             {
 
 
-                Form5_editMovie f5 = new Form5_editMovie(id, username);
+                Form5_editMovie f5 = new Form5_editMovie(id, username,genres);
                 this.Hide();
                 f5.ShowDialog();
                 this.Close();
@@ -215,6 +254,20 @@ namespace IMDBClone
             searchstring = m_textbox_search.Text;
             searchByGenre = false;
             Form3_MovieList f3 = new Form3_MovieList(username, searchstring, searchByGenre);
+            this.Hide();
+            f3.ShowDialog();
+            this.Close();
+        }
+//###########################################################################################################################################################################
+        private void m_button_findByGenre_Click(object sender, EventArgs e)
+        {
+            genreString1 = (m_comboBox_genre1.SelectedItem != null) ? m_comboBox_genre1.SelectedItem.ToString() : "";
+            genreString2 = (m_comboBox_genre2.SelectedItem != null) ? m_comboBox_genre2.SelectedItem.ToString() : "";
+
+            //MessageBox.Show(genreString1+genreString2);
+
+            searchByGenre = true;
+            Form3_MovieList f3 = new Form3_MovieList(username, genreString1,genreString2, searchByGenre);
             this.Hide();
             f3.ShowDialog();
             this.Close();

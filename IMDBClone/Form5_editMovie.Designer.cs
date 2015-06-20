@@ -45,6 +45,10 @@
             this.m_picturebox_poster = new System.Windows.Forms.PictureBox();
             this.m_button_cancel = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.m_comboBox_genre1 = new System.Windows.Forms.ComboBox();
+            this.m_comboBox_genre2 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.m_picturebox_poster)).BeginInit();
             this.SuspendLayout();
             // 
@@ -140,7 +144,7 @@
             // 
             this.m_richTextBox_summary.Location = new System.Drawing.Point(86, 116);
             this.m_richTextBox_summary.Name = "m_richTextBox_summary";
-            this.m_richTextBox_summary.Size = new System.Drawing.Size(243, 179);
+            this.m_richTextBox_summary.Size = new System.Drawing.Size(243, 124);
             this.m_richTextBox_summary.TabIndex = 18;
             this.m_richTextBox_summary.Text = "";
             // 
@@ -201,11 +205,51 @@
             this.label7.TabIndex = 30;
             this.label7.Text = "Current";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(26, 244);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(54, 20);
+            this.label8.TabIndex = 31;
+            this.label8.Text = "Genre";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(4, 273);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(79, 20);
+            this.label9.TabIndex = 32;
+            this.label9.Text = "Subgenre";
+            // 
+            // m_comboBox_genre1
+            // 
+            this.m_comboBox_genre1.FormattingEnabled = true;
+            this.m_comboBox_genre1.Location = new System.Drawing.Point(86, 246);
+            this.m_comboBox_genre1.Name = "m_comboBox_genre1";
+            this.m_comboBox_genre1.Size = new System.Drawing.Size(243, 21);
+            this.m_comboBox_genre1.TabIndex = 33;
+            // 
+            // m_comboBox_genre2
+            // 
+            this.m_comboBox_genre2.FormattingEnabled = true;
+            this.m_comboBox_genre2.Location = new System.Drawing.Point(86, 275);
+            this.m_comboBox_genre2.Name = "m_comboBox_genre2";
+            this.m_comboBox_genre2.Size = new System.Drawing.Size(243, 21);
+            this.m_comboBox_genre2.TabIndex = 34;
+            // 
             // Form5_editMovie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(357, 497);
+            this.Controls.Add(this.m_comboBox_genre2);
+            this.Controls.Add(this.m_comboBox_genre1);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.m_button_cancel);
             this.Controls.Add(this.m_picturebox_poster);
@@ -252,5 +296,9 @@
         private System.Windows.Forms.PictureBox m_picturebox_poster;
         private System.Windows.Forms.Button m_button_cancel;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox m_comboBox_genre1;
+        private System.Windows.Forms.ComboBox m_comboBox_genre2;
     }
 }
